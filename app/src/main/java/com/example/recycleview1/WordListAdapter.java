@@ -5,31 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder>
 {
-   
-    private final LinkedList<String> mWordList;
+
+    private final LinkedList<HashMap<String,String>> mWordList;
     private LayoutInflater mInflater;
 
+    class WordViewHolder extends RecyclerView.ViewHolder
+    {
+        private TextView title;
+        public WordViewHolder(View itemView, WordListAdapter adapter)
+        {
+            super(itemView);
+            title=itemView.findViewById(R.id.title);
+        }
+    }
+
+
     public WordListAdapter(Context context,
-                           LinkedList<String> wordList) {
+                           LinkedList<HashMap<String,String>> wordList) {
         mInflater = LayoutInflater.from(context);
         this.mWordList = wordList;
     }
 
-    class WordViewHolder extends RecyclerView.ViewHolder
-    {
-        public WordViewHolder(View itemView, WordListAdapter adapter)
-        {
-            super(itemView);
-            
-        }
-    }
 
 
     @Override
@@ -47,8 +52,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
 
     @Override
     public void onBindViewHolder(WordViewHolder holder, int position) {
-        String mCurrent = mWordList.get(position);
-       
+        holder.title.setText(mWordList.get(position).get("title"));
     }
 
 
